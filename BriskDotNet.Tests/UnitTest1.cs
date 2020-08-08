@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace BriskDotNet.Tests
@@ -9,13 +10,21 @@ namespace BriskDotNet.Tests
         [SetUp]
         public void Setup()
         {
-            this.client = new BriskClient("master", "changeme");
+            this.client = new BriskClient("http://localhost:3000", "master", "changeme");
         }
 
         [Test]
-        public void Test1()
+        public async Task TestCreateLink()
         {
-            Assert.Pass();
+            var response = await this.client.CreateLink(new Requests.CreateLinkRequest("https://github.com/nightwolf93/brisk", 30000, 5));
+            if (response.Slug.Length == 5)
+            {
+                Assert.Pass("Link created");
+            }
+            else
+            {
+                Assert.Fail("Slug not valid");
+            }
         }
     }
 }
