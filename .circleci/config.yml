@@ -15,6 +15,5 @@ jobs:
           command: dotnet build -c Release
           working_directory: BriskDotNet
       - run:
-          name: Running Tests
-          command: dotnet test
-          working_directory: BriskDotNet.Tests
+          name: Pack
+          command: dotnet pack BriskDotNet/BriskDotNet.csproj --output nupkgs
