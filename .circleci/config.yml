@@ -5,6 +5,7 @@ jobs:
       - image: jetcipher/circleci-dotnet-core:3.0
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: Restore
           command: dotnet restore
@@ -17,5 +18,3 @@ jobs:
           name: Running Tests
           command: dotnet test
           working_directory: BriskDotNet.Tests
-      - setup_remote_docker:
-          docker_layer_caching: true
