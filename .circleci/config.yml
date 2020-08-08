@@ -17,3 +17,6 @@ jobs:
       - run:
           name: Pack
           command: dotnet pack BriskDotNet/BriskDotNet.csproj --output nupkgs
+      - run:
+          name: Push to Nuget
+          command: dotnet nuget push nupkgs/BriskDotNet.1.0.0.nupkg -k $NUGET_KEY -s https://api.nuget.org/v3/index.json
