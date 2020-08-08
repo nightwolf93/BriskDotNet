@@ -16,7 +16,15 @@ jobs:
           working_directory: BriskDotNet
       - run:
           name: Pack
-          command: dotnet pack BriskDotNet/BriskDotNet.csproj --output nupkgs
+          command: dotnet pack BriskDotNet/BriskDotNet.csproj --output nupkgs -c Release
       - run:
           name: Push to Nuget
-          command: dotnet nuget push nupkgs/BriskDotNet.1.0.0.nupkg -k $NUGET_KEY -s https://api.nuget.org/v3/index.json
+          command: dotnet nuget push $(find nupkgs -mindepth 1 -print -quit) -k $NUGET_KEY -s https://api.nuget.org/v3/index.json
+workflows:
+  version: 2
+  build-master:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
