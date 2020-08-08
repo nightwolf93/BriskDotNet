@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: jetcipher/circleci-dotnet-core:3.0
+    steps:
+      - checkout
+      - run:
+          name: Restore
+          command: dotnet restore
+          working_directory: BriskDotNet
+      - run:
+          name: Build
+          command: dotnet build -c Release
+          working_directory: BriskDotNet
+      - run:
+          name: Running Tests
+          command: dotnet test
+          working_directory: BriskDotNet.Tests
+      - setup_remote_docker:
+          docker_layer_caching: true
